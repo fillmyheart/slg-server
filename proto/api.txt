@@ -1,0 +1,40 @@
+# 格式说明=
+# 客户端请求名_req结束.
+# 服务端回复包_ack结束.
+# 服务端通知包_ntf结束.
+
+packet_type:10001
+name:code_ack
+payload:pt_code
+desc:待用加密key.
+
+packet_type:1
+name:login_req
+payload:pt_account
+desc:待用加密key.
+module:player_account
+
+packet_type:2
+name:snapshot_ack
+payload:pt_snapshot
+desc:返回玩家数据快照
+module:
+
+packet_type:3
+name:building_up_req
+payload:pt_building
+desc:返回玩家数据快照
+module:player_account
+
+packet_type:4
+name:building_upl_req
+payload:pt_building
+desc:返回玩家数据快照
+module:player_account
+
+
+packet_type:5
+name:building_del_req
+payload:pt_building
+desc:返回玩家数据快照
+module:player_account

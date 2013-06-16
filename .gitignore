@@ -1,0 +1,13 @@
+.eunit
+erl_crash.dump
+ebin/*
+include/proto_api.hrl
+include/proto_record.hrl
+include/proto_error.hrl
+src/proto_ack.erl
+src/proto_encoder.erl
+src/proto_decoder.erl
+src/proto_error.erl
+src/proto_indian.hrl
+src/proto_request.erl
+deps/*

@@ -1,0 +1,4 @@
+* TODO 使用某种策略将活跃度不高的数据从内存ets中删除.
+* TODO 将测试用例的数据库改为slg_server
+* TODO 将csv文件处理整合到slg_server
+* TODO 重写代码生成器代码，有空的话。

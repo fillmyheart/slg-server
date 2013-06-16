@@ -1,0 +1,86 @@
+# 该文件规定客户端和服务之间的通信结构体模式.
+# 注释必须独占一行!!!!!
+#
+# 基本类型:
+#    integer
+#    float
+#    string
+#    boolean
+#    short
+# 若要定义数组，查找array，看看pt_keylist=你懂得.
+#
+# 附加类型，对服务器而言:
+#    pkid : decode to integer, encode to a string
+#    string: 其实是binary
+#
+# 每一个定义以'==='分割
+# 紧接一行注释，描述这个逻辑结构用来干啥.
+# 然后定义结构名字，以'='结束，这样可以grep '=' 出全部逻辑名字.
+# 每行代表一个成员定义.
+#
+# pt_为一般临时结构体
+# db_对应与数据库的表结构.
+#
+# 发布代码前请确保这些部分最新.
+
+# 普通错误回复
+pt_code=
+code integer
+===
+
+# 玩家基本信息
+pt_ubase=
+name string
+sex string
+===
+
+# 玩家设备信息
+db_device=
+id pkid
+d_type string
+udid string
+os string
+os_version string
+market string
+terminal string
+local string
+mac_addr string
+===
+
+# 玩家建筑信息
+db_building=
+id pkid
+user_id pkid
+b_type string
+sort integer
+level integer
+===
+
+# 玩家基本信息
+db_user=
+id pkid
+user_id pkid
+device_id pkid
+name string
+level integer
+experience integer
+sex integer
+===
+
+# 玩家注册信息
+pt_account=
+base pt_ubase
+device db_device
+===
+
+# 玩家快照信息
+pt_snapshot=
+user db_user
+buildings array db_building
+===
+
+# 建筑类型
+pt_building=
+id pkid
+b_type string
+===
