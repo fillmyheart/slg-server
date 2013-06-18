@@ -4,15 +4,10 @@
 
 -include("proto.hrl").
 
-terminate(_Reason, _State) ->
-  data:guard_f(),
-  ok.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 进程退出时的一些回调.
 
-code_ack(Api, Code) ->
-  ApiI = proto_api:key(Api),
-  CodeInt = proto_error:key(Code),
-  Common = #pt_code{code=CodeInt, api=ApiI},
-  conn:send(code_ack, Common),
+quit(_Reason, _State) ->
+  data:guard_f(),
   ok.
 
 cast(C, State) ->
@@ -26,3 +21,13 @@ info(C, State) ->
 call(C, From, State) ->
   io:format("call ~p from ~p~n", [C, From]),
   State.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 逻辑代码
+
+code_ack(Api, Code) ->
+  ApiI = proto_api:key(Api),
+  CodeInt = proto_error:key(Code),
+  Common = #pt_code{code=CodeInt, api=ApiI},
+  conn:send(code_ack, Common),
+  ok.
