@@ -37,7 +37,7 @@ normal_start() ->
   ok.
 
 conn_start() ->
-  conn_config:callback(player_state),
+  conn_config:callback(player),
   ok.
 
 start() ->
