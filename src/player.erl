@@ -14,3 +14,15 @@ code_ack(Api, Code) ->
   Common = #pt_code{code=CodeInt, api=ApiI},
   conn:send(code_ack, Common),
   ok.
+
+cast(C, State) ->
+  io:format("cast ~p~n", [C]),
+  State.
+
+info(C, State) ->
+  io:format("info ~p~n", [C]),
+  State.
+
+call(C, From, State) ->
+  io:format("call ~p from ~p~n", [C, From]),
+  State.
