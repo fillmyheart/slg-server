@@ -1,5 +1,5 @@
 -module(slg_server).
--export([start/0]).
+-export([start/0, migrate_do/0, migrate_redo/0]).
 
 -include("model.hrl").
 -include("proto_record.hrl").
@@ -53,3 +53,9 @@ start() ->
   model_config(),
   normal_start(),
   ok.
+
+migrate_do() ->
+  model_migrate:do("./migrate", "root", "", "slg_server").
+
+migrate_redo() ->
+  model_migrate:redo("./migrate", "root", "", "slg_server").
