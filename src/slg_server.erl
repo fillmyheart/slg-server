@@ -26,9 +26,10 @@ csv_config() ->
 %% 启动slg-model配置
 model_config() ->
   model:init_m(),
-  model:add_m(users, record_info(fields, db_user), "slg_server"),
-  model:add_m(devices, record_info(fields, db_device), "slg_server"),
-  model:add_m(buildings, record_info(fields, db_building), "slg_server"),
+  Dbc = #db_conf{username="root", password="", database="slg_server"},
+  model:add_m(users, record_info(fields, db_user), Dbc),
+  model:add_m(devices, record_info(fields, db_device), Dbc),
+  model:add_m(buildings, record_info(fields, db_building), Dbc),
   model:gen_m(), %% 生成配置表
   ok.
 
