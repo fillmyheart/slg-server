@@ -15,10 +15,9 @@ desc:待用加密key.
 module:player_account
 
 packet_type:2
-name:snapshot_ack
-payload:pt_snapshot
+name:login_ack
+payload:null
 desc:返回玩家数据快照
-module:
 
 packet_type:3
 name:building_up_req
@@ -38,3 +37,13 @@ name:building_del_req
 payload:pt_building
 desc:返回玩家数据快照
 module:player_account
+
+packet_type:6
+name:buildings_cah
+payload:db_buildings
+desc:返回玩家数据快照
+
+packet_type:7
+name:user_cah
+payload:db_user
+desc:返回玩家数据快照

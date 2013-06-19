@@ -39,18 +39,24 @@ login_req(#pt_account{device=Device, base=Base}) ->
   end,
   ok.
 
+%% 各种cache函数
+cache(user, UsrId) ->
+  {ok, U} = data:lookup_s(users, UsrId),
+  player:send(user_cah, U);
+cache(building, UsrId) ->
+  {ok, Buildings} = data:lookup_a(buildings, UsrId),
+  player:send(buildings_cah, #db_buildings{buildings=Buildings}).
+
 %% 玩家登陆，将主要的数据load到ets.
 base_init(UsrId) ->
-  {ok, U} = data:lookup_s(users, UsrId),
-  {ok, Buildings} = data:lookup_a(buildings, UsrId),
-  PT = #pt_snapshot{user=U, buildings=Buildings},
-  player:send(snapshot_ack, PT),
-  erlang:put(user_id, UsrId),
+  cache(user, UsrId),
+  cache(building, UsrId),
+  player:send(login_ack, undefined),
   ok.
+
 
 %% 建立建筑请求.
 building_up_req(#pt_building{b_type=Type}) ->
-  io:format("building ~p~n", [Type]),
   ID = data:id(buildings),
   UID = erlang:get(u_id),
   B = #db_building{id=ID, user_id = UID, level=1, b_type=Type},
@@ -59,7 +65,6 @@ building_up_req(#pt_building{b_type=Type}) ->
 
 %% 升级建筑请求.
 building_upl_req(#pt_building{id=Id}) ->
-  io:format("building l ~p~n", [Id]),
   %%{ok, Db} = data:lookup_i(buildings, Id),
   {ok, Level} = data:lookup_i_e(buildings, Id, #db_building.level),
   data:update_i_e(buildings, Id, [{#db_building.level, Level+1}]),
@@ -67,6 +72,5 @@ building_upl_req(#pt_building{id=Id}) ->
 
 %% 升级建筑请求.
 building_del_req(#pt_building{id=Id}) ->
-  io:format("building del ~p~n", [Id]),
   data:delete_i(buildings, erlang:get(user_id), Id),
   ok.

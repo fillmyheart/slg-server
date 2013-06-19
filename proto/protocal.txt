@@ -85,3 +85,8 @@ pt_building=
 id pkid
 b_type string
 ===
+
+# 建筑类型列表
+db_buildings=
+buildings array db_building
+===
