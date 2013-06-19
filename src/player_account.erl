@@ -39,18 +39,10 @@ login_req(#pt_account{device=Device, base=Base}) ->
   end,
   ok.
 
-%% 各种cache函数
-cache(user, UsrId) ->
-  {ok, U} = data:lookup_s(users, UsrId),
-  player:send(user_cah, U);
-cache(building, UsrId) ->
-  {ok, Buildings} = data:lookup_a(buildings, UsrId),
-  player:send(buildings_cah, #db_buildings{buildings=Buildings}).
-
 %% 玩家登陆，将主要的数据load到ets.
 base_init(UsrId) ->
-  cache(user, UsrId),
-  cache(building, UsrId),
+  player:cache(user, UsrId),
+  player:cache(building, UsrId),
   player:send(login_ack, undefined),
   ok.
 
