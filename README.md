@@ -6,6 +6,8 @@
 
 *生成协议代码:* `make g`
 
+*编译：* `make`
+
 *初始化数据库:* `make db`
 
 *启动:* `make s`，默认用户名加密码为：root，密码空；如果不是，自行修改slg_server.erl
@@ -25,9 +27,11 @@
 
 每一个组件都对应于单独的项目，你可以从`config/rebar.config`看出.
 
-## slg_proto
+## 连接协议处理：slg_proto
 ---
 slg_proto设计为处理游戏服务器中的tcp连接和协议打包解包，加密解密，玩家的基本进程运行在此模块.
+
+### 协议规范
 
 在目录proto下定义项目需要的包和协议，需要遵守以下规范：
 
@@ -56,3 +60,19 @@ slg_proto设计为处理游戏服务器中的tcp连接和协议打包解包，�
 * 10000以下为逻辑功能错误.
 * 对于一些简单错误，用`player:code_ack`回复。
 * 使用`player:send`给客户端发送各种包。
+
+修改proto后执行`make g && make`可生成可编译新的协议处理版本。
+
+### 回调处理
+
+`player.erl`模块有以下几个回调函数:
+
+`quit/2:` 进程退出，可以视为玩家退出登陆的事件点。
+`cast/2` 处理异步消息，gen_server:cast即可。
+`info/2` 处理info，gen_server。
+`call/3` 处理call，gen_server。
+
+## gd配置文件处理
+---
+
+slg-csv模块用来把gd配置的csv文件导入到ets表。
