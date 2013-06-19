@@ -171,3 +171,42 @@ inject函数还可以定义一个参数，但是函数原型为:
 
 可以slg_csv下代码:csv_inject2.erl
 ok.
+
+## 2.3 slg-model玩家数据处理.
+---
+
+程序使用ets表缓存玩家数据，查找数据时会先在ets表中进行，如果不存在则会在MySql中查询，同样，一些删除，更新，插入操作也在ets中直接执行，slg-model会实时的发送给异步持久化进程。
+
+### 2.3.1 初始化方法
+
+在`slg_server.erl`的model_config函数对model层进行了初始化:
+
+    model:init_m(),
+    Dbc = #db_conf{username="root", password="", database="slg_server"},
+    model:add_m(users, record_info(fields, db_user), Dbc),
+    model:add_m(devices, record_info(fields, db_device), Dbc),
+    model:add_m(buildings, record_info(fields, db_building), Dbc),
+    model:gen_m(), %% 生成配置表
+
+其中`db_user`和`db_device`都是在协议中定义的数据结构，而这个协议结构的字段和其类型必须和其对应的mysql表一一对应。
+
+model:_add_m(表名，数据类型，连接配置).
+
+
+### 2.3.2 数据操作
+
+数据操作函数集中在`data.erl`模块，如下：
+
+    -export([lookup_s/2, lookup_a/2, lookup_i/2]).
+    -export([update_s/3, update_i/2, delete_i/3, delete_s/3, clear/1]).
+    -export([add_s/3, add_i/3, id/1]).
+
+分别对应与增删查改。
+
+约定：
+
+*_s：* 为后缀的适合每个玩家只有一条的数据，比如玩家数据。
+*_a：* 为后缀的适合每个玩家有多条的数据，比如建筑。
+
+在player_account里有基本的例子。
+
