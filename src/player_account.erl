@@ -60,9 +60,9 @@ building_up_req(#pt_building{b_type=Type}) ->
 %% 升级建筑请求.
 building_upl_req(#pt_building{id=Id}) ->
   io:format("building l ~p~n", [Id]),
-  {ok, Db} = data:lookup_i(buildings, Id),
-  Level = Db#db_building.level,
-  data:update_i(buildings, Db#db_building{level = Level+1}),
+  %%{ok, Db} = data:lookup_i(buildings, Id),
+  {ok, Level} = data:lookup_i_e(buildings, Id, #db_building.level),
+  data:update_i_e(buildings, Id, [{#db_building.level, Level+1}]),
   ok.
 
 %% 升级建筑请求.
