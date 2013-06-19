@@ -34,8 +34,8 @@ login_req(#pt_account{device=Device, base=Base}) ->
     {atomic, {ok,R}} ->
       erlang:put(u_id, R#db_user.id),
       base_init(R#db_user.id);
-    timeout -> conn:code_ack(timeout);
-    error -> conn:code_ack(usr_name_duplicate)
+    timeout -> player:code_ack(timeout);
+    error -> player:code_ack(usr_name_duplicate)
   end,
   ok.
 
@@ -44,7 +44,7 @@ base_init(UsrId) ->
   {ok, U} = data:lookup_s(users, UsrId),
   {ok, Buildings} = data:lookup_a(buildings, UsrId),
   PT = #pt_snapshot{user=U, buildings=Buildings},
-  conn:send(snapshot_ack, PT),
+  player:send(snapshot_ack, PT),
   erlang:put(user_id, UsrId),
   ok.
 

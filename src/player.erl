@@ -22,6 +22,8 @@ call(C, From, State) ->
   io:format("call ~p from ~p~n", [C, From]),
   State.
 
+send(Api, PT) -> conn:send(Api, PT).
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 逻辑代码
 
