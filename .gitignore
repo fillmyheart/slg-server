@@ -10,3 +10,4 @@ src/proto_decoder.erl
 src/proto_error.erl
 src/proto_indian.hrl
 src/proto_request.erl
+deps/*
