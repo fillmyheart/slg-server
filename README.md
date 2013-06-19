@@ -1,3 +1,24 @@
+# 初始化
+
+*获取代码*
+    git clone git@42.121.105.8:slg-server.git
+
+*获取依赖关系*
+    make deps
+
+*生成协议代码*
+    make g
+
+*初始化数据库*
+    make db
+
+*启动* 默认用户名加密码为：root，密码空；如果不是，自行修改slg_server.erl
+    make s
+
+*测试*
+    在新的终端执行`make e`，执行:
+    gt:start().
+
 本项目是为小服设计的slg游戏服务器框架，主要包含以下四个组件:
 
 * slg_proto:处理网络连接，数据的序列化，加密解密处理.
