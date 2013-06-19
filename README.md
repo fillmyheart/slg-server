@@ -210,6 +210,10 @@ model:_add_m(表名，数据类型，连接配置).
 
 在player_account里有基本的例子。
 
+## 5.3 按元素查找和更新.
+
+`data.erl`模块中有`lookup_s_e， lookup_i_e, update_i_e, update_s_e`等四个函数，他们可以在模块被初始化之后使用，参看`player_account:building_upl_req`
+
 # 6. slg-support 公共模块
 ---
 
