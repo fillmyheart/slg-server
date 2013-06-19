@@ -60,7 +60,7 @@ m:
 	erl $(OPTS) -name deamon_shell@127.0.0.1  -remsh $(NODE)
 
 db:
-	erl $(OPTS) -s slg_server migrate_do
+	erl $(OPTS) -s slg_server migrate_do -noshell
 
 
 .PHONY: deps get-deps

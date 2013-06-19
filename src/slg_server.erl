@@ -46,7 +46,9 @@ start() ->
   ok.
 
 migrate_do() ->
-  model_migrate:do("./migrate", "root", "", "slg_server").
+  model_migrate:do("./migrate", "root", "", "slg_server"),
+  erlang:halt().
 
 migrate_redo() ->
-  model_migrate:redo("./migrate", "root", "", "slg_server").
+  model_migrate:redo("./migrate", "root", "", "slg_server"),
+  erlang:halt().
