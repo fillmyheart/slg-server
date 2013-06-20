@@ -16,6 +16,7 @@ csv_config() ->
 %% 启动slg-model配置
 model_config() ->
   model:init_m(),
+  model:sid_s(1),
   Dbc = #db_conf{username="root", password="", database="slg_server"},
   model:add_m(users, record_info(fields, db_user), Dbc),
   model:add_m(devices, record_info(fields, db_device), Dbc),
