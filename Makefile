@@ -5,7 +5,11 @@ LOAD_PATH = \
 	$(NULL)
 
 # 节点名称
-NODE = galaxy-empire@127.0.0.1
+NODE=$(shell cat ./config/node_name.conf)
+ifeq ($(NODE),)
+	NODE = slg-server@127.0.0.1
+endif
+
 # cookie
 COOKIE = abcdeft
 
