@@ -23,6 +23,11 @@
 #
 # 发布代码前请确保这些部分最新.
 
+# 有时候只需要1个id
+pt_pkid=
+id pkid
+===
+
 # 普通错误回复
 pt_code=
 api integer

@@ -60,9 +60,12 @@ building_upl_req(#pt_building{id=Id}) ->
   %%{ok, Db} = data:lookup_i(buildings, Id),
   {ok, Level} = data:lookup_i_e(buildings, Id, #db_building.level),
   data:update_i_e(buildings, Id, [{#db_building.level, Level+1}]),
+  {ok, B} = data:lookup_i(buildings, Id),
+  player:send(buildings_cah_upt, B),
   ok.
 
 %% 升级建筑请求.
 building_del_req(#pt_building{id=Id}) ->
   data:delete_i(buildings, erlang:get(user_id), Id),
+  player:send(buildings_cah_del, #pt_pkid{id=Id}),
   ok.
