@@ -28,6 +28,10 @@ pt_pkid=
 id pkid
 ===
 
+pt_int=
+i integer
+===
+
 # 普通错误回复
 pt_code=
 api integer

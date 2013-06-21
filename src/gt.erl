@@ -30,6 +30,10 @@ building_up(Pid, Type) ->
 building_l_up(Pid, Id) ->
   gen_server:call(Pid, {building_l_up, Id}).
 
+user_l(Pid, L) ->
+  gen_server:call(Pid, {user_l, L}).
+
+
 building_d(Pid, Id) ->
   gen_server:call(Pid, {building_d, Id}).
 
@@ -58,6 +62,12 @@ handle_call({building_l_up, Id}, _From, State=#state{socket=Socket}) ->
   Pt = #pt_building{id=Id},
   proto_request:building_upl_req(Pt, Socket),
   {reply, ok, State};
+
+handle_call({user_l, L}, _From, State=#state{socket=Socket}) ->
+  Pt = #pt_int{i = L},
+  proto_request:user_l_req(Pt, Socket),
+  {reply, ok, State};
+
 
 handle_call({register, Name, Udid}, _From, State=#state{socket=Socket}) ->
   Base = #pt_ubase{name=Name, sex=1},

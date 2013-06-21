@@ -36,7 +36,7 @@ code_ack(Api, Code) ->
 %% 各种cache函数，使用同一函数名，方便优化.
 cache(user, UsrId) ->
   {ok, U} = data:lookup_s(users, UsrId),
-  player:send(user_cah, U);
+  player:send(users_cah, U);
 cache(building, UsrId) ->
   {ok, Buildings} = data:lookup_a(buildings, UsrId),
   player:send(buildings_cah, #db_buildings{buildings=Buildings}).

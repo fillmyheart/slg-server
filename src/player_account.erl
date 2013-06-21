@@ -3,7 +3,8 @@
 %% 登陆的数据初始化必须在一个事务完成.
 %%
 -module(player_account).
--export([login_req/1, building_up_req/1, building_upl_req/1, building_del_req/1]).
+-export([login_req/1, building_up_req/1, building_upl_req/1, building_del_req/1,
+         user_l_req/1]).
 
 -include("proto.hrl").
 -include_lib("eunit/include/eunit.hrl").
@@ -57,15 +58,19 @@ building_up_req(#pt_building{b_type=Type}) ->
 
 %% 升级建筑请求.
 building_upl_req(#pt_building{id=Id}) ->
-  %%{ok, Db} = data:lookup_i(buildings, Id),
   {ok, Level} = data:lookup_i_e(buildings, Id, #db_building.level),
   data:update_i_e(buildings, Id, [{#db_building.level, Level+1}]),
-  {ok, B} = data:lookup_i(buildings, Id),
-  player:send(buildings_cah_upt, B),
   ok.
 
 %% 升级建筑请求.
 building_del_req(#pt_building{id=Id}) ->
-  data:delete_i(buildings, erlang:get(user_id), Id),
-  player:send(buildings_cah_del, #pt_pkid{id=Id}),
+  UID = erlang:get(u_id),
+  ok = data:delete_i(buildings, UID, Id),
+  ok.
+
+%% 请求升级
+user_l_req(#pt_int{i=L1}) ->
+  UID = erlang:get(u_id),
+  {ok, L} = data:lookup_s_e(users, UID, #db_user.level),
+  data:update_s_e(users, UID, [{#db_user.level, L+L1}]),
   ok.

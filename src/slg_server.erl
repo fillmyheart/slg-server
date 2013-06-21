@@ -44,7 +44,7 @@ start() ->
   csv_config(),
   model_config(),
   normal_start(),
-  pld_event:start(),
+  ply_event:start(),
   ok.
 
 migrate_do() ->
