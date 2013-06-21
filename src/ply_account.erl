@@ -2,7 +2,7 @@
 %% 用户直接使用角色名登陆，如果角色名不存在，服务器则创建一个。
 %% 登陆的数据初始化必须在一个事务完成.
 %%
--module(player_account).
+-module(ply_account).
 -export([login_req/1, building_up_req/1, building_upl_req/1, building_del_req/1,
          user_l_req/1]).
 
