@@ -34,16 +34,6 @@ CREATE TABLE `buildings` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `buildings`
---
-
-LOCK TABLES `buildings` WRITE;
-/*!40000 ALTER TABLE `buildings` DISABLE KEYS */;
-INSERT INTO `buildings` VALUES (1,1,'test1',1,2),(5,724040,'fe',0,8),(6,724040,'fe23',0,5),(8,724040,'didi',0,1);
-/*!40000 ALTER TABLE `buildings` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `devices`
 --
 
@@ -66,14 +56,20 @@ CREATE TABLE `devices` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `devices`
+-- Table structure for table `migrate`
 --
 
-LOCK TABLES `devices` WRITE;
-/*!40000 ALTER TABLE `devices` DISABLE KEYS */;
-INSERT INTO `devices` VALUES (156002,'','few','','','','','',''),(156027,'','testudid','','','','','','');
-/*!40000 ALTER TABLE `devices` ENABLE KEYS */;
-UNLOCK TABLES;
+DROP TABLE IF EXISTS `migrate`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `migrate` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `version` varchar(50) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id_UNIQUE` (`id`),
+  UNIQUE KEY `version_UNIQUE` (`version`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Table structure for table `users`
@@ -95,16 +91,6 @@ CREATE TABLE `users` (
   UNIQUE KEY `username_UNIQUE` (`name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='ALTER TABLE `table` ADD INDEX `product_id` (`product_id`)';
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `users`
---
-
-LOCK TABLES `users` WRITE;
-/*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (724003,724003,156002,'xewfwe',0,0,1),(724013,724013,156002,'xewfwe2',0,0,1),(724014,724014,156002,'xewfwe3',0,0,1),(724015,724015,156002,'xewfwe4',0,0,1),(724037,724037,1001,'zykff',0,0,1),(724038,0,156002,'xewfwe42',0,0,1),(724039,724039,156002,'nice',0,0,1),(724040,724040,156002,'nice1',0,0,1);
-/*!40000 ALTER TABLE `users` ENABLE KEYS */;
-UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -115,4 +101,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2013-06-18 15:03:21
+-- Dump completed on 2013-06-21 17:53:21
