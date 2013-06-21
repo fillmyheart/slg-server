@@ -6,8 +6,13 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 进程退出时的一些回调.
 
+join(_UID) ->
+  %% join chat channel
+  ok.
+
 quit(_Reason, _State) ->
   data:guard_f(),
+  %% quit chat channel
   ok.
 
 cast(C, State) ->

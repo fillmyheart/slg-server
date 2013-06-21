@@ -45,6 +45,7 @@ base_init(UsrId) ->
   player:cache(user, UsrId),
   player:cache(building, UsrId),
   player:send(login_ack, undefined),
+  player:join(UsrId),
   ok.
 
 
