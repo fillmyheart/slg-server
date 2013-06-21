@@ -39,6 +39,18 @@ all:
 deps:
 	$(REBAR) get-deps
 
+pl:
+	cd deps/slg_csv && git pull origin master
+	cd deps/slg_proto && git pull origin master
+	cd deps/slg_support && git pull origin master
+	cd deps/slg_model && git pull origin master
+
+ps:
+	cd deps/slg_csv && git push origin master
+	cd deps/slg_proto && git push origin master
+	cd deps/slg_support && git push origin master
+	cd deps/slg_model && git push origin master
+
 t:
 	$(REBAR) compile eunit
 
