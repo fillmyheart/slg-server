@@ -5,11 +5,11 @@
 -include("proto_record.hrl").
 -include("gd_record.hrl").
 
-
 %% 启动slg-csv配置文件部分.
 csv_config() ->
   slg_csv:root("data/"),
-  slg_csv:add({gd_vip_exp, [public, duplicate_bag, {keypos,2}]},?csv_record(gd_vip_exp), ["vip_exp.csv"]),
+  slg_csv:add({gd_vip_exp, [public, duplicate_bag, {keypos,2}]},
+              ?csv_record(gd_vip_exp), ["vip_exp.csv"]),
   slg_csv:load(),
   ok.
 
@@ -21,7 +21,12 @@ model_config() ->
   model:add_m(users, record_info(fields, db_user), Dbc),
   model:add_m(devices, record_info(fields, db_device), Dbc),
   model:add_m(buildings, record_info(fields, db_building), Dbc),
-  model:gen_m(), %% 生成配置表
+  model:gen_m(),
+
+  %% 生成cache表
+  ply_cache:set(users, s),
+  ply_cache:set(buildings, a),
+  ply_cache:gen(),
   ok.
 
 normal_start() ->

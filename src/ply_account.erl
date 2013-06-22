@@ -42,8 +42,7 @@ login_req(#pt_account{device=Device, base=Base}) ->
 
 %% 玩家登陆，将主要的数据load到ets.
 base_init(UsrId) ->
-  player:cache(user, UsrId),
-  player:cache(building, UsrId),
+  ply_cache:cache_l(UsrId),
   player:send(login_ack, #pt_int{}),
   player:join(UsrId),
   ok.

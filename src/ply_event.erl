@@ -6,50 +6,66 @@
 
 -include("proto.hrl").
 
-atom_suffix(Table, Suffix) ->
-  L = atom_to_list(Table) ++ "_" ++ Suffix,
-  list_to_atom(L).
-
 slg_m_upt_s({Table, UsrId, Data}) ->
-  player:send(atom_suffix(Table, "cah"), Data),
-  io:format(">> slg_m_upt_s ~p ~p ~p ~n", [Table, UsrId, Data]),
-  ok.
+  case ply_cache1:cache(Table) of
+    s -> player:send(spt_atom:atom_suffix(Table, "cah"), Data),
+         io:format(">> slg_m_upt_s ~p ~p ~p ~n", [Table, UsrId, Data]);
+    _ -> do_nothing
+  end.
+
 
 slg_m_upt_s_e({Table, UsrId, Id, List}) ->
-  io:format(">> slg_m_upt_s_e ~p ~p ~p ~p~n", [Table, UsrId, Id, List]),
-  {ok, Db} = data:lookup_s(Table, UsrId),
-  player:send(atom_suffix(Table, "cah"), Db),
-  ok.
+  case ply_cache1:cache(Table) of
+    s ->
+      io:format(">> slg_m_upt_s_e ~p ~p ~p ~p~n", [Table, UsrId, Id, List]),
+      {ok, Db} = data:lookup_s(Table, UsrId),
+      player:send(spt_atom:atom_suffix(Table, "cah"), Db);
+    _ -> do_nothing
+  end.
 
 slg_m_upt_i({Table, Data}) ->
-  io:format(">> slg_m_upt_i ~p ~p~n", [Table, Data]),
-  player:send(atom_suffix(Table, "cah_upt"), Data),
-  ok.
+  case ply_cache1:cache(Table) of
+    a ->
+      io:format(">> slg_m_upt_i ~p ~p~n", [Table, Data]),
+      player:send(spt_atom:atom_suffix(Table, "cah_upt"), Data);
+    _ -> do_nothing
+  end.
 
 %% 没办法，没实现单字段更新包
 slg_m_upt_i_e({Table, Id, List}) ->
-  io:format(">> slg_m_upt_i_e ~p ~p ~p~n", [Table, Id, List]),
-  {ok, B} = data:lookup_i(Table, Id),
-  player:send(atom_suffix(Table, "cah_upt"), B),
-  ok.
+  case ply_cache1:cache(Table) of
+    a ->
+      io:format(">> slg_m_upt_i_e ~p ~p ~p~n", [Table, Id, List]),
+      {ok, B} = data:lookup_i(Table, Id),
+      player:send(spt_atom:atom_suffix(Table, "cah_upt"), B);
+    _ -> do_nothing
+  end.
+
 
 %% %% 设每个玩家的s数据不会被删除，如果你删了，确定逻辑无误??
 %% slg_m_del_s({Table, UsrId, Id}) ->
 %%   ok.
 
 slg_m_del_i({Table, UsrId, Id}) ->
-  io:format(">> slg_m_del_i ~p ~p ~p~n", [Table, UsrId, Id]),
-  player:send(atom_suffix(Table, "cah_del"), #pt_pkid{id=Id}),
-  ok.
+  case ply_cache1:cache(Table) of
+    a ->
+      io:format(">> slg_m_del_i ~p ~p ~p~n", [Table, UsrId, Id]),
+      player:send(spt_atom:atom_suffix(Table, "cah_del"), #pt_pkid{id=Id});
+    _ -> do_nothing
+  end.
 
 %% %% s数据加入不发生更新包.
 %% slg_m_add_s({Table, UsrId, Data}) ->
 %%   ok.
 
 slg_m_add_i({Table, UsrId, Data}) ->
-  io:format(">>slg_m_add_i  ~p ~p ~p~n", [Table, UsrId, Data]),
-  player:send(atom_suffix(Table, "cah_new"), Data),
-  ok.
+  case ply_cache1:cache(Table) of
+    a ->
+      io:format(">>slg_m_add_i  ~p ~p ~p~n", [Table, UsrId, Data]),
+      player:send(spt_atom:atom_suffix(Table, "cah_new"), Data);
+    _ -> do_nothing
+  end.
+
 
 start() ->
   spt_notify:sub(slg_m_upt_s, fun ply_event:slg_m_upt_s/1),
