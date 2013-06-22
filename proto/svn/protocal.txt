@@ -22,7 +22,6 @@
 # db_对应与数据库的表结构.
 #
 # 发布代码前请确保这些部分最新.
-
 # 有时候只需要1个id
 pt_pkid=
 id pkid
@@ -86,7 +85,7 @@ device db_device
 # 玩家快照信息
 pt_snapshot=
 user db_user
-buildings db_building $array
+buildings array db_building
 ===
 
 # 建筑类型
@@ -97,5 +96,5 @@ b_type string
 
 # 建筑类型列表
 db_buildings=
-buildings db_building $array
+buildings array db_building
 ===

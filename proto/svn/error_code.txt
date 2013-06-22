@@ -1,0 +1,5 @@
+10000-ok-成功
+10001-inner_error-内部错误
+10002-bad_param-参数错误
+10003-timeout-服务器超时
+1-usr_name_duplicate-用户名已被注册

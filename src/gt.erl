@@ -14,6 +14,11 @@ start() ->
   ?MODULE:login(Pid, "nice1", "few"),
   Pid.
 
+
+send(ApiType, Payload, Socket) ->
+  Bin = proto_encoder:encode(ApiType, Payload),
+  gen_tcp:send(Socket, Bin).
+
 %% api
 start_link(IP, Port) ->
   gen_server:start_link(?MODULE, [IP, Port], []).
@@ -49,36 +54,29 @@ handle_cast(_, State) ->
 
 handle_call({building_up, Type}, _From, State=#state{socket=Socket}) ->
   Pt = #pt_building{b_type=Type},
-  proto_request:building_up_req(Pt, Socket),
+  send(building_up_req, Pt, Socket),
   {reply, ok, State};
 
 
 handle_call({building_d, Id}, _From, State=#state{socket=Socket}) ->
   Pt = #pt_building{id=Id},
-  proto_request:building_del_req(Pt, Socket),
+  send(building_del_req, Pt, Socket),
   {reply, ok, State};
 
 handle_call({building_l_up, Id}, _From, State=#state{socket=Socket}) ->
   Pt = #pt_building{id=Id},
-  proto_request:building_upl_req(Pt, Socket),
+  send(building_upl_req, Pt, Socket),
   {reply, ok, State};
 
 handle_call({user_l, L}, _From, State=#state{socket=Socket}) ->
   Pt = #pt_int{i = L},
-  proto_request:user_l_req(Pt, Socket),
-  {reply, ok, State};
-
-
-handle_call({register, Name, Udid}, _From, State=#state{socket=Socket}) ->
-  Base = #pt_ubase{name=Name, sex=1},
-  Device = #db_device{udid=Udid},
-  proto_request:register_req(#pt_account{base=Base, device=Device}, Socket),
+  send(user_l_req, Pt, Socket),
   {reply, ok, State};
 
 handle_call({login, Name, Udid}, _From, State=#state{socket=Socket}) ->
   Base = #pt_ubase{name=Name, sex=1},
   Device = #db_device{udid=Udid},
-  proto_request:login_req(#pt_account{base=Base, device=Device}, Socket),
+  send(login_req, #pt_account{base=Base, device=Device}, Socket),
   {reply, ok, State};
 
 handle_call(_Msg, _From, State) ->

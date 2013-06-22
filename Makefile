@@ -59,8 +59,7 @@ c:
 
 # 调用生成器生成代码
 g:
-	cd deps/slg_proto/src && ruby ./proto_gen.rb $(shell pwd)/
-	cp include/proto*  deps/slg_proto/include
+	ruby ./deps/slg_proto/src/proto_gen2.rb proto/ proto/svn/ ./deps/slg_proto/proto/code
 
 s:
 	erl $(OPTS) -name $(NODE) -s slg_server
