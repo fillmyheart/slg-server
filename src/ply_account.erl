@@ -44,7 +44,7 @@ login_req(#pt_account{device=Device, base=Base}) ->
 base_init(UsrId) ->
   player:cache(user, UsrId),
   player:cache(building, UsrId),
-  player:send(login_ack, undefined),
+  player:send(login_ack, #pt_int{}),
   player:join(UsrId),
   ok.
 

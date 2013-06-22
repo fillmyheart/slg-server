@@ -16,7 +16,7 @@ module:ply_account
 
 packet_type:2
 name:login_ack
-payload:null
+payload:pt_int
 desc:返回玩家数据快照
 
 packet_type:3
