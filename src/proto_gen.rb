@@ -56,6 +56,12 @@ def gen_group(file, api, index, length)
               },
               {
                 "packet_type" => (code.to_i+4).to_s,
+                "name" => name+"_cah_dels",
+                "payload" => "pt_pkids",
+                "desc" => desc
+              },
+              {
+                "packet_type" => (code.to_i+5).to_s,
                 "name" => name+"_cah_upt",
                 "payload" => "db_"+name.chop(),
                 "desc" => desc

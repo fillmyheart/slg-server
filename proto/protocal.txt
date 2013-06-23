@@ -28,6 +28,13 @@ pt_pkid=
 id pkid
 ===
 
+
+# 有时候需要个多个id
+pt_pkids=
+ids pkid $array
+===
+
+
 pt_int=
 i integer
 ===

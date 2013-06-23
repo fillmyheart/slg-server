@@ -59,6 +59,11 @@ payload:pt_pkid
 desc:玩家建筑数据的cache组.
 
 packet_type:84
+name:buildings_cah_dels
+payload:pt_pkids
+desc:玩家建筑数据的cache组.
+
+packet_type:85
 name:buildings_cah_upt
 payload:db_building
 desc:玩家建筑数据的cache组.
@@ -79,6 +84,11 @@ payload:pt_pkid
 desc:玩家好友数据
 
 packet_type:94
+name:friends_cah_dels
+payload:pt_pkids
+desc:玩家好友数据
+
+packet_type:95
 name:friends_cah_upt
 payload:db_friend
 desc:玩家好友数据
@@ -93,4 +103,10 @@ packet_type:110
 name:friend_d_req
 payload:pt_pkid
 desc:请求删好友，参数为好友id.
+module:ply_account
+
+packet_type:120
+name:friend_l_d_req
+payload:pt_pkids
+desc:请求删好友，参数为好友id列表
 module:ply_account

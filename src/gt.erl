@@ -44,6 +44,10 @@ friend_a(Pid, Id) ->
 friend_d(Pid, Id) ->
   gen_server:call(Pid, {friend_d_req, Id}).
 
+friend_l_d(Pid, Id) ->
+  gen_server:call(Pid, {friend_l_d_req, Id}).
+
+
 building_d(Pid, Id) ->
   gen_server:call(Pid, {building_d, Id}).
 
@@ -83,6 +87,12 @@ handle_call({friend_a_req, Id}, _From, State=#state{socket=Socket}) ->
 handle_call({friend_d_req, Id}, _From, State=#state{socket=Socket}) ->
   Pt = #pt_pkid{id=Id},
   send(friend_d_req, Pt, Socket),
+  {reply, ok, State};
+
+
+handle_call({friend_l_d_req, Id}, _From, State=#state{socket=Socket}) ->
+  Pt = #pt_pkids{ids=Id},
+  send(friend_l_d_req, Pt, Socket),
   {reply, ok, State};
 
 

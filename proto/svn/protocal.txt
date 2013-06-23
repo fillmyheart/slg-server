@@ -27,6 +27,11 @@ pt_pkid=
 id pkid
 ===
 
+# 有时候需要个多个id
+pt_pkids=
+ids array pkid
+===
+
 pt_int=
 i integer
 ===

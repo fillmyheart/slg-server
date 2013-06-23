@@ -54,6 +54,14 @@ slg_m_del_i({Table, UsrId, Id}) ->
     _ -> do_nothing
   end.
 
+slg_m_del_i_a({Table, UsrId, Ids}) ->
+  case ply_cache1:cache(Table) of
+    a ->
+      io:format(">> slg_m_del_i_a ~p ~p ~p~n", [Table, UsrId, Ids]),
+      player:send(spt_atom:atom_suffix(Table, "cah_dels"), #pt_pkids{ids=Ids});
+    _ -> do_nothing
+  end.
+
 %% %% s数据加入不发生更新包.
 %% slg_m_add_s({Table, UsrId, Data}) ->
 %%   ok.
@@ -74,6 +82,7 @@ start() ->
   spt_notify:sub(slg_m_upt_i_e, fun ply_event:slg_m_upt_i_e/1),
   %% spt_notify:sub(slg_m_del_s, fun ply_event:slg_m_del_s/1),
   spt_notify:sub(slg_m_del_i, fun ply_event:slg_m_del_i/1),
+  spt_notify:sub(slg_m_del_i_a, fun ply_event:slg_m_del_i_a/1),
   %% spt_notify:sub(slg_m_add_s, fun ply_event:slg_m_add_s/1),
   spt_notify:sub(slg_m_add_i, fun ply_event:slg_m_add_i/1),
   ok.
