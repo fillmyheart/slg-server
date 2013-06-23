@@ -4,7 +4,7 @@
 %%
 -module(ply_account).
 -export([login_req/1, building_up_req/1, building_upl_req/1, building_del_req/1,
-         user_l_req/1, friend_a_req/1]).
+         user_l_req/1, friend_a_req/1, friend_d_req/1]).
 
 -include("proto.hrl").
 -include_lib("eunit/include/eunit.hrl").
@@ -85,3 +85,8 @@ friend_a_req(#pt_pkid{id=FriendId}) ->
       data:add_i(friends, UID, B)
   end,
   player:code_ack(friend_a_req, ok).
+
+friend_d_req(#pt_pkid{id=Id}) ->
+  UID = erlang:get(u_id),
+  ok = data:delete_i(friends, UID, Id),
+  ok.

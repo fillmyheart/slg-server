@@ -88,3 +88,9 @@ name:friend_a_req
 payload:pt_pkid
 desc:请求加好友，参数为好友id.
 module:ply_account
+
+packet_type:110
+name:friend_d_req
+payload:pt_pkid
+desc:请求删好友，参数为好友id.
+module:ply_account
