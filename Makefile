@@ -46,6 +46,8 @@ pl:
 	cd deps/slg_model && git pull origin master
 
 ps:
+	git push origin master
+	git push github master
 	cd deps/slg_csv && git push origin master
 	cd deps/slg_proto && git push origin master
 	cd deps/slg_support && git push origin master
@@ -59,6 +61,7 @@ c:
 
 # 调用生成器生成代码
 g:
+	ruby src/proto_gen.rb
 	ruby ./deps/slg_proto/src/proto_gen2.rb proto/ proto/svn/ ./deps/slg_proto/proto/code
 
 s:
