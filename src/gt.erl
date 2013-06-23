@@ -11,7 +11,7 @@
 
 start() ->
   {ok, Pid} = start_link("127.0.0.1", 4000),
-  ?MODULE:login(Pid, "nice1", "few"),
+  ?MODULE:login(Pid, <<"nice1">>, <<"few">>),
   Pid.
 
 

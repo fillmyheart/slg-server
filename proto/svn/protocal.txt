@@ -45,7 +45,7 @@ code integer
 # 玩家基本信息
 pt_ubase=
 name string
-sex string
+sex uchar
 ===
 
 # 玩家设备信息
@@ -66,8 +66,8 @@ db_building=
 id pkid
 user_id  pkid
 b_type string
-sort integer
-level integer
+sort uchar
+level uchar
 ===
 
 # 玩家基本信息
@@ -76,9 +76,9 @@ id pkid
 user_id  pkid
 device_id pkid
 name string
-level integer
-experience integer
-sex integer
+level uchar
+experience uinteger
+sex uchar
 ===
 
 # 玩家注册信息
