@@ -19,7 +19,6 @@
 -- Table structure for table `buildings`
 --
 
-DROP TABLE IF EXISTS `buildings`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `buildings` (
@@ -37,7 +36,6 @@ CREATE TABLE `buildings` (
 -- Table structure for table `devices`
 --
 
-DROP TABLE IF EXISTS `devices`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `devices` (
@@ -58,18 +56,6 @@ CREATE TABLE `devices` (
 --
 -- Table structure for table `migrate`
 --
-
-DROP TABLE IF EXISTS `migrate`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `migrate` (
-  `id` int(10) NOT NULL AUTO_INCREMENT,
-  `version` varchar(50) NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `id_UNIQUE` (`id`),
-  UNIQUE KEY `version_UNIQUE` (`version`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Table structure for table `users`

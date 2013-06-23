@@ -60,7 +60,7 @@ mac_addr string
 # 玩家建筑信息
 db_building=
 id pkid
-user_id pkid
+user_id pkid $masked
 b_type string
 sort integer
 level integer
@@ -69,7 +69,7 @@ level integer
 # 玩家基本信息
 db_user=
 id pkid
-user_id pkid
+user_id pkid $masked
 device_id pkid
 name string
 level integer
@@ -98,4 +98,15 @@ b_type string
 # 建筑类型列表
 db_buildings=
 buildings db_building $array
+===
+
+# 玩家好友基本信息
+db_friend=
+id pkid
+user_id pkid $masked
+friend_id pkid
+===
+
+db_friends=
+friends db_friend $array
 ===

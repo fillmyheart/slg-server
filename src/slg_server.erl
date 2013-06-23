@@ -1,5 +1,5 @@
 -module(slg_server).
--export([start/0, migrate_do/0, migrate_redo/0]).
+-export([start/0, migrate_do/0, migrate_redo/0, migrate_new/1]).
 
 -include("model.hrl").
 -include("proto_record.hrl").
@@ -21,11 +21,13 @@ model_config() ->
   model:add_m(users, record_info(fields, db_user), Dbc),
   model:add_m(devices, record_info(fields, db_device), Dbc),
   model:add_m(buildings, record_info(fields, db_building), Dbc),
+  model:add_m(friends, record_info(fields, db_friend), Dbc),
   model:gen_m(),
 
   %% 生成cache表
   ply_cache:set(users, s),
   ply_cache:set(buildings, a),
+  ply_cache:set(friends, a),
   ply_cache:gen(),
   ok.
 
@@ -59,3 +61,6 @@ migrate_do() ->
 migrate_redo() ->
   model_migrate:redo("./migrate", "root", "", "slg_server"),
   erlang:halt().
+
+migrate_new(Atom) ->
+  model_migrate:new("./migrate", Atom).

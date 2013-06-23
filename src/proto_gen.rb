@@ -12,7 +12,9 @@ def parse_api(path)
     array=line.split(":")
     api[array[0]] = array[1]
     if line == ""
-      api_list << api unless api["packet_type"].nil?
+      if api["packet_type"] != nil or api["cache_group"] != nil
+        api_list << api
+      end
       api = {}
     end
   end
@@ -30,7 +32,6 @@ end
 
 # 生成协议组.
 def gen_group(file, api, index, length)
-  puts("gen_group #{api}")
   code = api["cache_group"]
   name = api["name"]
   desc = api["desc"]

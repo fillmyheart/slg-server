@@ -32,7 +32,6 @@ payload:pt_building
 desc:返回玩家数据快照
 module:ply_account
 
-
 packet_type:60
 name:user_l_req
 payload:pt_int
@@ -52,3 +51,16 @@ cache_group:80
 name:buildings
 type:array
 desc:玩家建筑数据的cache组.
+
+# 多条数据包组例子，好友
+
+cache_group:90
+name:friends
+type:array
+desc:玩家好友数据
+
+packet_type:100
+name:friend_a_req
+payload:pt_pkid
+desc:请求加好友，参数为好友id.
+module:ply_account

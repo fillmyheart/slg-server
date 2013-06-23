@@ -4,7 +4,7 @@
 %%
 -module(ply_account).
 -export([login_req/1, building_up_req/1, building_upl_req/1, building_del_req/1,
-         user_l_req/1]).
+         user_l_req/1, friend_a_req/1]).
 
 -include("proto.hrl").
 -include_lib("eunit/include/eunit.hrl").
@@ -47,7 +47,6 @@ base_init(UsrId) ->
   player:join(UsrId),
   ok.
 
-
 %% 建立建筑请求.
 building_up_req(#pt_building{b_type=Type}) ->
   ID = data:id(buildings),
@@ -74,3 +73,15 @@ user_l_req(#pt_int{i=L1}) ->
   {ok, L} = data:lookup_s_e(users, UID, #db_user.level),
   data:update_s_e(users, UID, [{#db_user.level, L+L1}]),
   ok.
+
+friend_a_req(#pt_pkid{id=FriendId}) ->
+  UID = erlang:get(u_id),
+  {ok, Friends} = data:lookup_a_e(friends, UID, #db_friend.friend_id),
+  case lists:member(FriendId, Friends) of
+    true -> do_nothing;
+    false ->
+      ID = data:id(friends),
+      B = #db_friend{id=ID, user_id=UID, friend_id=FriendId},
+      data:add_i(friends, UID, B)
+  end,
+  player:code_ack(friend_a_req, ok).
