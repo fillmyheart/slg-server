@@ -17,7 +17,7 @@ csv_config() ->
 model_config() ->
   model:init_m(),
   model:sid_s(1),
-  Dbc = #db_conf{username="root", password="", database="slg_server"},
+  Dbc = #db_conf{username=env:username(),password=env:password(), database=env:database()},
   model:add_m(users, record_info(fields, db_user), Dbc),
   model:add_m(devices, record_info(fields, db_device), Dbc),
   model:add_m(buildings, record_info(fields, db_building), Dbc),
@@ -32,22 +32,20 @@ model_config() ->
   ok.
 
 normal_start() ->
-  model:start(#db_conf{poll=normal, database="slg_server", worker=27}),
-  ok.
-
-conn_start() ->
-  conn_config:callback(player),
+  Dbc = #db_conf{username=env:username(), password=env:password(), database=env:database()},
+  model:start(Dbc#db_conf{poll=normal, worker=27}),
   ok.
 
 start() ->
+  spt_config:gen(env, "config/server.conf"),
   application:start(log4erl),
   log4erl:conf("config/log4erl.conf"),
   application:start(slg_csv),
-  slg_proto:start(),
+  Port = env:listen(),
+  slg_proto:start(player, Port),
   application:start(slg_model),
   application:start(slg_server),
   application:start(slg_support),
-  conn_start(),
   csv_config(),
   model_config(),
   normal_start(),
