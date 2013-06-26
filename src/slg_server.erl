@@ -43,7 +43,7 @@ start() ->
   application:start(log4erl),
   log4erl:conf("config/log4erl.conf"),
   application:start(slg_csv),
-  application:start(slg_proto),
+  slg_proto:start(),
   application:start(slg_model),
   application:start(slg_server),
   application:start(slg_support),

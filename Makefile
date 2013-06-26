@@ -71,7 +71,7 @@ e:
 	erl $(OPTS)
 
 r:
-	erl $(OPTS) -s robot start
+	erl $(OPTS) -s gt start
 
 # 连接上后台erlang节点
 m:
