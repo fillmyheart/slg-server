@@ -17,7 +17,9 @@ csv_config() ->
 model_config() ->
   model:init_m(),
   model:sid_s(1),
-  Dbc = #db_conf{username=env:username(),password=env:password(), database=env:database()},
+  Dbc = #db_conf{username=env:username(),
+                 password=env:password(),
+                 database=env:database()},
   model:add_m(users, record_info(fields, db_user), Dbc),
   model:add_m(devices, record_info(fields, db_device), Dbc),
   model:add_m(buildings, record_info(fields, db_building), Dbc),
@@ -32,7 +34,9 @@ model_config() ->
   ok.
 
 normal_start() ->
-  Dbc = #db_conf{username=env:username(), password=env:password(), database=env:database()},
+  Dbc = #db_conf{username=env:username(),
+                 password=env:password(),
+                 database=env:database()},
   model:start(Dbc#db_conf{poll=normal, worker=27}),
   ok.
 
