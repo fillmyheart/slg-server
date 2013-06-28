@@ -80,5 +80,14 @@ m:
 db:
 	erl $(OPTS) -s slg_server migrate_do -noshell
 
+rebuild_db:
+	erl $(OPTS) -s slg_server migrate_redo -noshell
 
-.PHONY: deps get-deps
+## make new=this_is_atest migrate
+## 生成新的migrate文件
+migrate:
+	erl $(OPTS) -run slg_server migrate_new $(new) -noshell
+
+
+
+.PHONY: deps get-deps migrate

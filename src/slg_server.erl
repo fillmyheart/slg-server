@@ -57,12 +57,23 @@ start() ->
   ok.
 
 migrate_do() ->
-  model_migrate:do("./migrate", "root", "", "slg_server"),
+  spt_config:gen(env, "config/server.conf"),
+  DataBase = env:database(),
+  UserName = env:username(),
+  PassWord = env:password(),
+  model_migrate:do("./migrate", UserName, PassWord, DataBase),
   erlang:halt().
 
 migrate_redo() ->
-  model_migrate:redo("./migrate", "root", "", "slg_server"),
+  spt_config:gen(env, "config/server.conf"),
+  DataBase = env:database(),
+  UserName = env:username(),
+  PassWord = env:password(),
+  model_migrate:redo("./migrate", UserName, PassWord, DataBase),
   erlang:halt().
 
-migrate_new(Atom) ->
-  model_migrate:new("./migrate", Atom).
+migrate_new([List]) ->
+  A = list_to_atom(List),
+  model_migrate:new("./migrate", A),
+  erlang:halt(),
+  ok.
