@@ -45,6 +45,12 @@ pl:
 	cd deps/slg_support && git pull origin master
 	cd deps/slg_model && git pull origin master
 
+gs:
+	cd deps/slg_csv && git status
+	cd deps/slg_proto && git status
+	cd deps/slg_support && git status
+	cd deps/slg_model && git status
+
 ps:
 	git push origin master
 	git push github master

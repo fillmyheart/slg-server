@@ -61,7 +61,8 @@ migrate_do() ->
   DataBase = env:database(),
   UserName = env:username(),
   PassWord = env:password(),
-  model_migrate:do("./migrate", UserName, PassWord, DataBase),
+  HostName = env:hostname(),
+  model_migrate:do("./migrate", HostName, UserName, PassWord, DataBase),
   erlang:halt().
 
 migrate_redo() ->
@@ -69,7 +70,8 @@ migrate_redo() ->
   DataBase = env:database(),
   UserName = env:username(),
   PassWord = env:password(),
-  model_migrate:redo("./migrate", UserName, PassWord, DataBase),
+  HostName = env:hostname(),
+  model_migrate:redo("./migrate", HostName, UserName, PassWord, DataBase),
   erlang:halt().
 
 migrate_new([List]) ->
