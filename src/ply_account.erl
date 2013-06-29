@@ -10,21 +10,21 @@
 -include_lib("eunit/include/eunit.hrl").
 
 find_create_d(DbDevice=#db_device{udid=Udid}) ->
-  case model_devices:select([{udid, Udid}]) of
+  case model_devices:select_t([{udid, Udid}]) of
     [] -> DbDevice1 = DbDevice#db_device{id = data:id(devices)},
-          ok = model_devices:insert(DbDevice1),
+          ok = model_devices:insert_t(DbDevice1),
           DbDevice1;
     [Db] -> Db
   end.
 
 find_create_u(DbDevice, #pt_ubase{name=Name, sex=Sex}) ->
   #db_device{id=Did} = find_create_d(DbDevice),
-  case model_users:select(normal, [{name, Name}, {device_id, Did}]) of
+  case model_users:select_t([{name, Name}, {device_id, Did}]) of
     [Result] -> {ok, Result};
     [] -> %% 不存在则新建
       Id = data:id(users),
       Usr = #db_user{name=Name, sex=Sex, id=Id, device_id=Did, user_id=Id},
-      case model_users:insert(Usr) of
+      case model_users:insert_t(Usr) of
         ok -> {ok, Usr};
         _ -> error
       end
