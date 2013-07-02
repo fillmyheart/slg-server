@@ -32,7 +32,7 @@ find_create_u(DbDevice, #pt_ubase{name=Name, sex=Sex}) ->
 
 login_req(#pt_account{device=Device, base=Base}) ->
   case model:trans(normal, fun()-> find_create_u(Device, Base) end) of
-    {atomic, {ok,R}} ->
+    {atomic, {ok, R}} ->
       erlang:put(u_id, R#db_user.id),
       base_init(R#db_user.id);
     timeout -> player:code_ack(timeout);
@@ -57,8 +57,9 @@ building_up_req(#pt_building{b_type=Type}) ->
 
 %% 升级建筑请求.
 building_upl_req(#pt_building{id=Id}) ->
-  {ok, Level} = data:lookup_i_e(buildings, Id, #db_building.level),
-  data:update_i_e(buildings, Id, [{#db_building.level, Level+1}]),
+  UID = erlang:get(u_id),
+  {ok, Level} = data:lookup_i_e(buildings, UID, Id, #db_building.level),
+  data:update_i_e(buildings, UID, Id, [{#db_building.level, Level+1}]),
   ok.
 
 %% 升级建筑请求.

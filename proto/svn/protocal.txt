@@ -79,6 +79,7 @@ name string
 level uchar
 experience uinteger
 sex uchar
+money uinteger
 ===
 
 # 玩家注册信息
