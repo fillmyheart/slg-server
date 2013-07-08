@@ -67,7 +67,7 @@ mac_addr string
 db_building=
 id pkid
 user_id pkid $masked
-b_type string
+b_type string $masked
 sort uchar
 level uchar
 ===

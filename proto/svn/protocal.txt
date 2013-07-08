@@ -65,7 +65,7 @@ mac_addr string
 db_building=
 id pkid
 user_id  pkid
-b_type string
+b_type  string
 sort uchar
 level uchar
 ===
